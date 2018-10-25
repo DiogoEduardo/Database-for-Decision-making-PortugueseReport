@@ -1,0 +1,36 @@
+CREATE TABLE public."domicilios_temp2" (idDomicilio SERIAL, "DataCarga" date default current_timestamp, "UF" text, "Microrregiao" text, "Rural\Urbano" text, "TipodeResidencia" text, "Propriedade" text, "Densidade(MoradorCômodo)" text, "Densidade(MoradorQuarto)" text, "TipodeEscoamentoSanitário" text, "FormadeAbastecimentodeÁgua" text, "DestinodoLixo" text, "ExistênciadeEnergiaElétrica" text, "ExistênciadeBanheiros" text,  "ExistênciadeRádio" text, "ExistênciadeTV" text, "ExistênciadeMáquinadeLavar" text, "ExistênciadeGeladeira" text, "ExistênciadeCelular" text, "ExistênciadeTelefoneFixo" text, "ExistênciadeMicrocomputador" text, "ExistênciadeMotocicletaPrópria" text, "ExistênciadeAutomóvelParticular" text, "QuantidadedeMoradores" text, "FalecimentodeAlgumMoradornoÚltimoAno" text, "RendimentoMensalemSaláriosMínimos" text, "RendimentoMensalDomiciliarperCaptaemSaláriosMínimos" text, "EspéciedaUnidadeDoméstica" text, "AdequaçãodaMoradia" text, PRIMARY KEY(idDomicilio));
+
+CREATE TABLE public."h_domicilios" (idDomicilio integer, "DataCarga" date default current_timestamp, "Microrregiao" text, PRIMARY KEY (idDomicilio));
+
+CREATE TABLE public."s_domicilios" (idDomicilio integer, "DataCarga" date default current_timestamp, "SituaçãodoDomicílio" text, "TipodeEspécie" text, "CondiçãodeOcupação" text, "Densidade(MoradorCômodo)" integer, "Densidade(MoradorQuarto)" integer, "ExistênciadeBanheiros" integer, "TipodeEscoamentoSanitário" text, "FormadeAbastecimentodeÁgua" text, "DestinodoLixo" text, "ExistênciadeEnergiaElétrica" integer, "ExistênciadeRádio" integer, "ExistênciadeTV" integer, "ExistênciadeMáquinadeLavar" integer, "ExistênciadeGeladeira" integer, "ExistênciadeCelular" integer, "ExistênciadeTelefoneFixo" integer, "ExistênciadeMicrocomputador" integer, "ExistênciadeMotocicletaPrópria" integer, "ExistênciadeAutomóvelParticular" integer, "QuantidadedeMoradores" integer, "FalecimentodeAlgumMoradornoÚltimoAno" text, "RendimentoMensalemSaláriosMínimos" integer, "RendimentoMensalDomiciliarperCaptaemSaláriosMínimos" integer, "EspéciedaUnidadeDoméstica" text, "AdequaçãodaMoradia" text, PRIMARY KEY(idDomicilio));
+
+CREATE TABLE public."h_microrregiao"(idMicrorregiao SERIAL, "DataCarga" date default current_timestamp, "NomeMicrorregiao" text UNIQUE, PRIMARY KEY(idMicrorregiao));
+
+CREATE TABLE public."h_pessoas"(idPessoa SERIAL, "DataCarga" date default current_timestamp, PRIMARY KEY (idPessoa)); --falta um atributo fixo
+
+CREATE TABLE public."s_pessoas"(idPessoa, "DataCarga" date default current_timestamp); --falta atributos
+
+CREATE TABLE public."l_mora"(idPessoa integer, "DataCarga" date default current_timestamp, idMicrorregiao integer);
+
+CREATE TABLE public."l_esta"(
+	idDomicilio integer NOT NULL, idMicrorregiao integer NOT NULL, "DataCarga" date default current_timestamp,
+	FOREIGN KEY (idDomicilio) REFERENCES "h_domicilios" (idDomicilio),
+    FOREIGN KEY (idMicrorregiao) REFERENCES "h_microrregiao" (idMicrorregiao),
+    PRIMARY KEY (idMicrorregiao, IdDomicilio));
+
+Drop TABLE "domicilios_temp2";
+Drop TABLE "h_domicilios";
+Drop TABLE "s_domicilios";
+Drop TABLE "h_microrregiao";
+Drop TABLE "h_pessoas";
+Drop TABLE "l_esta";
+
+SELECT * FROM "h_domicilios" WHERE id='371820';
+
+SELECT last_value FROM "h_domicilios";
+
+SELECT * FROM "domicilios_temp2";
+SELECT * FROM "h_domicilios";
+SELECT * FROM "h_microrregiao";
+SELECT * FROM "h_microrregiao";
+SELECT * FROM "l_esta";
